@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-find_package(GTest 1.11.0 CONFIG QUIET)
+find_package(GTest 1.10.0 CONFIG QUIET)
 
-if(NOT GTest_VERSION VERSION_EQUAL 1.11.0)
+if(NOT GTest_VERSION VERSION_EQUAL 1.10.0)
   include(${CMAKE_SOURCE_DIR}/cmake/external-gtest.cmake)
 endif()
 
