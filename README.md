@@ -21,14 +21,14 @@ lcov_branch_coverage = 1
 ### install googletest for x86-64
 ```bash
 $ cd ~ && git clone -b 'release-1.10.0' https://github.com/google/googletest.git
-$ cd googletest && mkdir build && cd build && cmake .. && make
+$ cd googletest && cmake -Bbuild && cd build && make
 $ sudo make install
 ```
 
 ### build and run
 ```bash
 $ cd ~ && git clone https://github.com/hyukmyeong/example.git
-$ cd ~/example && mkdir build && cd build && cmake .. && make
+$ cd ~/example && cmake -Bbuild && cd build && make
 $ ./product
 ```
 
@@ -54,7 +54,7 @@ $ sudo bash -c 'for f in /usr/bin/aarch64-linux-gnu-*-9; do ln -s "$f" "$(echo "
 $ cd ~ && git clone https://github.com/hyukmyeong/example.git
 $ cd ~/example && git clone -b 'release-1.10.0' https://github.com/google/googletest.git
 $ cd googletest && mkdir build && cd build
-$ cmake .. -DCMAKE_TOOLCHAIN_FILE=../cmake/aarch64-linux-gnu-gcc.cmake -DCMAKE_INSTALL_PREFIX=/usr/aarch64-linux-gnu
+$ cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=cmake/aarch64-linux-gnu-gcc.cmake -DCMAKE_INSTALL_PREFIX=/usr/aarch64-linux-gnu
 $ make && sudo make install
 $ cd ~/example && rm -rf googletest
 ```
@@ -62,7 +62,7 @@ $ cd ~/example && rm -rf googletest
 ### build and run
 ```bash
 $ cd ~/example && mkdir build && cd build
-$ cmake .. -DCMAKE_TOOLCHAIN_FILE=../cmake/aarch64-linux-gnu-gcc.cmake
+$ cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=cmake/aarch64-linux-gnu-gcc.cmake
 $ make
 $ qemu-aarch64 -L /usr/aarch64-linux-gnu ./product
 ```
