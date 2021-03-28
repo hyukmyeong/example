@@ -3,7 +3,6 @@ set(CMAKE_SYSTEM_PROCESSOR aarch64)
 
 set(CMAKE_LIBRARY_ARCHITECTURE aarch64-linux-gnu)
 set(CMAKE_FIND_ROOT_PATH /usr/${CMAKE_LIBRARY_ARCHITECTURE})
-
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER) # (/usr/bin/)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)  # (/usr/aarch64-linux-gnu/include/)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)  # (/usr/aarch64-linux-gnu/lib/)
