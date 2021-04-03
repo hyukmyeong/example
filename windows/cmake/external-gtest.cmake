@@ -7,7 +7,9 @@ externalproject_add(GTest
   CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
   INSTALL_COMMAND "")
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+if(CMAKE_CXX_COMPILER_ID MATCHES MSVC)
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+endif()
 
 externalproject_get_property(GTest source_dir)
 externalproject_get_property(GTest binary_dir)
