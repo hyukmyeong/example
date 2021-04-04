@@ -17,7 +17,7 @@ int foo()
   return array[5];
 }
 
-TEST(ASan, HeapUseAfterFree)
+TEST(ASanTest, HeapUseAfterFree)
 {
   foo();
 }

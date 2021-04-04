@@ -28,7 +28,7 @@ void goo()
   *ptr = 0;
 }
 
-TEST(LSan, MallocCallocNew)
+TEST(LeakTest, MallocCallocNew)
 {
   foo();
   boo();
