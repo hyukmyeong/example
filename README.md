@@ -53,17 +53,17 @@ $ sudo bash -c 'for f in /usr/bin/aarch64-linux-gnu-*-9; do ln -s "$f" "$(echo "
 ```bash
 $ cd ~ && git clone https://github.com/hyukmyeong/example.git
 $ cd ~/example && git clone -b 'release-1.10.0' https://github.com/google/googletest.git
-$ cd googletest && mkdir build && cd build
+$ cd googletest && mkdir build
 $ cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=aarch64-linux-gnu-gcc.cmake -DCMAKE_INSTALL_PREFIX=/usr/aarch64-linux-gnu
-$ make && sudo make install
+$ cd build && make && sudo make install
 $ cd ~/example && rm -rf googletest
 ```
 
 ### build and run
 ```bash
-$ cd ~/example && mkdir build && cd build
+$ cd ~/example
 $ cmake -Bbuild -DCMAKE_TOOLCHAIN_FILE=aarch64-linux-gnu-gcc.cmake
-$ make
+$ cd build && make
 $ qemu-aarch64 -L /usr/aarch64-linux-gnu ./product
 ```
 

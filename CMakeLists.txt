@@ -10,7 +10,6 @@ message(STATUS "Compiler ID      \t: ${CMAKE_CXX_COMPILER_ID}")
 message(STATUS "Compiler Version \t: ${CMAKE_CXX_COMPILER_VERSION}")
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic")
 
 file(GLOB_RECURSE PROD_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_executable(${PROJECT_NAME} ${PROD_SRC})
