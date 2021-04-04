@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#if defined(FIND_LEAK) && defined(_MSC_VER)
+#if defined(MEMORY_LEAK_TEST) && defined(_MSC_VER)
 #include "vld.h"
 #endif
 

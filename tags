@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DOC	include/doc.h	/^class DOC {$/;"	c
+DOC::foo	include/doc.h	/^  virtual std::string foo()$/;"	f	class:DOC	access:public	signature:()
+MOCK_METHOD0	test/gtest_ex1.cpp	/^  MOCK_METHOD0(foo, std::string());$/;"	p	class:MockDOC	file:	access:public	signature:(foo, std::string())
+MockDOC	test/gtest_ex1.cpp	/^class MockDOC : public DOC {$/;"	c	file:	inherits:DOC
+MockDOC::MOCK_METHOD0	test/gtest_ex1.cpp	/^  MOCK_METHOD0(foo, std::string());$/;"	p	class:MockDOC	file:	access:public	signature:(foo, std::string())
+SUT	include/sut.h	/^  SUT(DOC& doc) : doc_(doc) {}$/;"	f	class:SUT	access:public	signature:(DOC& doc)
+SUT	include/sut.h	/^class SUT {$/;"	c
+SUT::SUT	include/sut.h	/^  SUT(DOC& doc) : doc_(doc) {}$/;"	f	class:SUT	access:public	signature:(DOC& doc)
+SUT::doc_	include/sut.h	/^  DOC& doc_;$/;"	m	class:SUT	access:private
+SUT::foo	include/sut.h	/^  bool foo(bool, bool);$/;"	p	class:SUT	access:public	signature:(bool, bool)
+SUT::foo	src/sut.cpp	/^bool SUT::foo(bool param1, bool param2)$/;"	f	class:SUT	signature:(bool param1, bool param2)
+TEST	test/gtest_ex1.cpp	/^TEST(SutTest, UseMock)$/;"	f	signature:(SutTest, UseMock)
+TEST	test/gtest_ex2.cpp	/^TEST(ASanTest, HeapUseAfterFree)$/;"	f	signature:(ASanTest, HeapUseAfterFree)
+TEST	test/gtest_ex3.cpp	/^TEST(LeakTest, MallocCallocNew)$/;"	f	signature:(LeakTest, MallocCallocNew)
+_DOC_H_	include/doc.h	2;"	d
+_SUT_H_	include/sut.h	2;"	d
+boo	test/gtest_ex3.cpp	/^void boo()$/;"	f	signature:()
+doc_	include/sut.h	/^  DOC& doc_;$/;"	m	class:SUT	access:private
+foo	include/doc.h	/^  virtual std::string foo()$/;"	f	class:DOC	access:public	signature:()
+foo	include/sut.h	/^  bool foo(bool, bool);$/;"	p	class:SUT	access:public	signature:(bool, bool)
+foo	src/sut.cpp	/^bool SUT::foo(bool param1, bool param2)$/;"	f	class:SUT	signature:(bool param1, bool param2)
+foo	test/gtest_ex2.cpp	/^int foo()$/;"	f	signature:()
+foo	test/gtest_ex3.cpp	/^void foo()$/;"	f	signature:()
+goo	test/gtest_ex3.cpp	/^void goo()$/;"	f	signature:()
+main	src/main.cpp	/^int main()$/;"	f	signature:()
+main	test/gtest_ex1.cpp	/^int main(int argc, char **argv)$/;"	f	signature:(int argc, char **argv)
+main	test/gtest_ex2.cpp	/^int main(int argc, char **argv)$/;"	f	signature:(int argc, char **argv)
+main	test/gtest_ex3.cpp	/^int main(int argc, char **argv)$/;"	f	signature:(int argc, char **argv)
