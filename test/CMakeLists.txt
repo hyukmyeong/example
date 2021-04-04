@@ -1,42 +1,51 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-find_package(GTest 1.10.0 CONFIG QUIET)
+find_package(GTest 1.10.0 CONFIG REQUIRED)
 
-if(NOT GTest_VERSION VERSION_EQUAL 1.10.0)
-  include(${CMAKE_SOURCE_DIR}/cmake/external-gtest.cmake)
-endif()
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
+  find_program(GCOV ${CMAKE_LIBRARY_ARCHITECTURE}-gcov)
+  find_program(LCOV lcov)
+  find_program(GENH genhtml)
 
-find_program(GCOV ${CMAKE_LIBRARY_ARCHITECTURE}-gcov)
-find_program(LCOV lcov)
-find_program(GENH genhtml)
-
-if(GCOV AND LCOV AND GENH)
-  set(COVERAGE "-coverage")
-  add_custom_target(coverage
-    COMMAND ${LCOV} -c -d '.' -o 'info'
-    COMMAND ${LCOV} -e 'info' '*/example/*' -o 'info'
-    COMMAND ${LCOV} -r 'info' '*/test/*' -o 'info'
-    COMMAND ${GENH} 'info' -o 'coverage' --filter branch)
+  if(GCOV AND LCOV AND GENH)
+    set(COVERAGE "-coverage")
+    add_custom_target(coverage
+      COMMAND ${LCOV} -c -d '.' -o 'info'
+      COMMAND ${LCOV} -e 'info' '*/example/*' -o 'info'
+      COMMAND ${LCOV} -r 'info' '*/test/*' -o 'info'
+      COMMAND ${GENH} 'info' -o 'coverage' --filter branch)
+  endif()
 endif()
 
 list(REMOVE_ITEM PROD_SRC ${CMAKE_SOURCE_DIR}/src/main.cpp)
 
+if(CMAKE_CXX_COMPILER_ID MATCHES MSVC)
 function(create_test name)
-  if(NOT CMAKE_CROSSCOMPILING)
-    add_executable(${name} ${name}.cpp ${PROD_SRC})
-    target_include_directories(${name} PRIVATE ${CMAKE_SOURCE_DIR}/include)
-    target_link_libraries(${name} PRIVATE GTest::gtest GTest::gmock)
-    target_compile_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
-    target_link_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
+  add_executable(${name} ${name}.cpp ${PROD_SRC})
+  add_test(NAME ${name} COMMAND "$<TARGET_FILE:${name}>")
+  target_include_directories(${name} PRIVATE ${CMAKE_SOURCE_DIR}/include)
+  target_link_libraries(${name} PRIVATE GTest::gtest GTest::gmock)
 
+  if(TRUE)
+    target_compile_options(${name} PRIVATE /fsanitize=address)
+    target_link_options(${name} PRIVATE /incremental:no)
+  else()
+    target_compile_definitions(${name} PRIVATE FIND_LEAK)
+    target_link_libraries(${name} PRIVATE "C:/Program Files (x86)/Visual Leak Detector/lib/Win64/vld.lib")
+    target_include_directories(${name} PRIVATE "C:/Program Files (x86)/Visual Leak Detector/include")
+  endif()
+endfunction()
+elseif(CMAKE_CXX_COMPILER_ID MATCHES GNU)
+function(create_test name)
+  add_executable(${name} ${name}.cpp ${PROD_SRC})
+  target_include_directories(${name} PRIVATE ${CMAKE_SOURCE_DIR}/include)
+  target_link_libraries(${name} PRIVATE GTest::gtest GTest::gmock)
+  target_compile_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
+  target_link_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
+  
+  if(NOT CMAKE_CROSSCOMPILING)
     add_test(NAME ${name} COMMAND "$<TARGET_FILE:${name}>")
   else()
-    add_executable(${name} ${name}.cpp ${PROD_SRC})
-    target_include_directories(${name} PRIVATE ${CMAKE_SOURCE_DIR}/include)
-    target_link_libraries(${name} PRIVATE GTest::gtest GTest::gmock)
-    target_compile_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
-    target_link_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
-
     add_test(NAME ${name} COMMAND
       env ASAN_OPTIONS=detect_leaks=0
       ${CMAKE_CROSSCOMPILING_EMULATOR} -L ${CMAKE_FIND_ROOT_PATH}
@@ -54,6 +63,7 @@ function(create_test name)
       "$<TARGET_FILE:${name_}>")
   endif()
 endfunction()
+endif()
 
 create_test(gtest_ex1)
 create_test(gtest_ex2)
