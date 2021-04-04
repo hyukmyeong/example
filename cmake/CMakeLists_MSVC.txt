@@ -20,7 +20,7 @@ function(create_leak_test name)
 endfunction()
 
 list(REMOVE_ITEM PROD_SRC ${CMAKE_SOURCE_DIR}/src/main.cpp)
-if(FALSE)
+if(TRUE)
   create_test(gtest_ex1)
   create_test(gtest_ex2)
   create_test(gtest_ex3)
