@@ -1,5 +1,7 @@
 ## install basic tools
 
+how about using cmake --build build-cmake ??
+
 ### lcov 1.15 + branch-filter
 ```bash
 $ sudo apt autoremove lcov
