@@ -45,6 +45,7 @@ int main(int argc, char **argv)
 #include <iostream>
 #include <string>
 #include <thread>
+#include <netdb.h>
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
@@ -69,10 +70,18 @@ TEST(LeakTest, Thread)
   t2.join();
 }
 
-int main(int argc, char **argv)
+int boo()
 {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  struct addrinfo hints, *res;
+  memset(&hints, 0, sizeof hints);
+
+  getaddrinfo("www.example.com", 0, &hints, &res);
+  freeaddrinfo(res);
+}
+
+TEST(LeakTest, Standard)
+{
+  boo();
 }
 
 int main(int argc, char **argv)
