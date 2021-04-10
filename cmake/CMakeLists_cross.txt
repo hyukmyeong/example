@@ -19,12 +19,9 @@ function(create_test name)
   add_executable(${name} ${name}.cpp ${PROD_SRC})
   target_include_directories(${name} PRIVATE ${CMAKE_SOURCE_DIR}/include)
   target_link_libraries(${name} PRIVATE GTest::gtest GTest::gmock)
-  target_compile_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
-  if(CMAKE_VERSION VERSION_GREATER 3.13)
-    target_link_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
-  else()
-    set_target_properties(${name} PROPERTIES LINK_FLAGS "${COVERAGE} -fsanitize=address")
-  endif()
+  set_target_properties(${name} PROPERTIES
+	  COMPILE_FLAGS "${COVERAGE} -fsanitize=address"
+	  LINK_FLAGS "${COVERAGE} -fsanitize=address")
   add_test(NAME ${name} COMMAND
     env ASAN_OPTIONS=detect_leaks=0
     ${CMAKE_CROSSCOMPILING_EMULATOR} -L ${CMAKE_FIND_ROOT_PATH} $<TARGET_FILE:${name}>)
@@ -50,3 +47,10 @@ else()
   create_leak_test(gtest_ex2)
   create_leak_test(gtest_ex3)
 endif()
+
+  #target_compile_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
+  #if(CMAKE_VERSION VERSION_GREATER 3.13)
+    #target_link_options(${name} PRIVATE ${COVERAGE} -fsanitize=address)
+  #else()
+    #set_target_properties(${name} PROPERTIES LINK_FLAGS "${COVERAGE} -fsanitize=address")
+  #endif()
