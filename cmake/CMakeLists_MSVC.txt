@@ -12,7 +12,7 @@ endfunction()
 
 function(create_leak_test name)
   add_executable(${name}_leak ${name}.cpp ${PROD_SRC})
-  target_include_directories(${name}_leak PRIVATE
+  target_include_directories(${name}_leak PRIVATE 
     ${CMAKE_SOURCE_DIR}/include "D:/vcpkg/packages/vld/include")
   target_link_libraries(${name}_leak PRIVATE
     GTest::gtest GTest::gmock "D:/vcpkg/packages/vld/lib/Win64/vld.lib")
