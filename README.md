@@ -75,7 +75,7 @@ $ make test
 $ make coverage && google-chrome test/coverage/index.html
 ```
 
-## other issues
+## other issues..
 
 ### if lcov spacing is not looking good in chrome
 open google-chrome -> settings -> fonts -> customize -> fixed-width font -> Monospace, etc.
